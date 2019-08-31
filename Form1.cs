@@ -35,17 +35,22 @@ namespace AutoPoint
             PowerPoint.Shape pptShape = pptShapes[1];
             PowerPoint.TextFrame pptTextFrame = pptShape.TextFrame;
             PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
-            pptTextRange.Text = "All-In-One Code Framework";
+            pptTextRange.Text = "Test Text";
 
             string fileName = "C:/Users/Alvin/Desktop/sample.pptx";
             pres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation, Office.MsoTriState.msoTriStateMixed);
             pres.Close();
             pptApplication.Quit();
+            // TODO: Need to figure out how to close ppt application programmatically
             Marshal.FinalReleaseComObject(pptApplication);
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
 
         }
     }
