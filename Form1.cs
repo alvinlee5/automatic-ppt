@@ -51,7 +51,7 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-
+            MessageBox.Show("Your Message here");
         }
     }
 }
