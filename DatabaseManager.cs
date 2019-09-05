@@ -10,10 +10,22 @@ namespace AutoPoint
 {
     class DatabaseManager
     {
-        private SQLiteConnection sql_con;
-        private SQLiteCommand sql_cmd;
-        private SQLiteDataAdapter DB;
-        private DataSet DS = new DataSet();
-        private DataTable DT = new DataTable();
+        private SQLiteConnection m_dbConnection;
+        private SQLiteCommand m_dbCommand;
+        private SQLiteDataAdapter m_dbDataAdapter;
+        private DataSet m_dataSet = new DataSet();
+        private DataTable m_dataTable = new DataTable();
+
+        private void SetConnection()
+        {
+            // By default, version 3 creates new DB file if it doesn't exist already (?)
+            // TODO: Check existence of database and table...(?)
+            m_dbConnection = new SQLiteConnection("Data Source=Songs.db;Version=3");
+        }
+
+        public void ExecuteQuery(string txtQuery)
+        {
+
+        }
     }
 }
