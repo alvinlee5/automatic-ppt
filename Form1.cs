@@ -16,6 +16,7 @@ namespace AutoPoint
 {
     public partial class Form1 : Form
     {
+        DatabaseManager m_dbManager;
         public Form1()
         {
             InitializeComponent();
@@ -52,6 +53,8 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
+            DatabaseManager m_dbManager = new DatabaseManager();
+            m_dbManager.SetConnection();
             MessageBox.Show("Your Message here");
         }
     }

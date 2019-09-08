@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
+using System.IO;
 
 namespace AutoPoint
 {
@@ -16,11 +17,23 @@ namespace AutoPoint
         private DataSet m_dataSet = new DataSet();
         private DataTable m_dataTable = new DataTable();
 
-        private void SetConnection()
+        //Change back to private later
+        public void SetConnection()
         {
-            // By default, version 3 creates new DB file if it doesn't exist already (?)
-            // TODO: Check existence of database and table...(?)
-            m_dbConnection = new SQLiteConnection("Data Source=Songs.db;Version=3");
+/*            if (File.Exists("songs.db"))
+            {
+                File.Delete("songs.db");
+            }*/
+
+            // Create DB if it doesn't exist.
+            // C:\Users\Alvin\source\repos\AutoPoint\bin\Debug\songs.db
+            if (!File.Exists("songs.db"))
+            {
+                SQLiteConnection.CreateFile("songs.db");
+            }
+            
+
+            m_dbConnection = new SQLiteConnection("Data Source=songs.db;Version=3");
         }
 
         public void ExecuteQuery(string txtQuery)
