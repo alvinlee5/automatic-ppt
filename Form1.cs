@@ -53,9 +53,21 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            DatabaseManager m_dbManager = new DatabaseManager();
+            m_dbManager = new DatabaseManager();
             m_dbManager.SetConnection();
-            MessageBox.Show("Your Message here");
+            MessageBox.Show("DB Connection Established");
+        }
+
+        private void button3_Click(object sender, System.EventArgs e)
+        {
+            m_dbManager.ExecuteQuery("stub");
+            MessageBox.Show("Create database and added entry");
+        }
+
+        private void button4_Click(object sender, System.EventArgs e)
+        {
+            DatabaseManager m_dbManager = new DatabaseManager();
+            m_dbManager.Read();
         }
     }
 }
