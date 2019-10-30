@@ -66,7 +66,6 @@ namespace AutoPoint
 
         private void button4_Click(object sender, System.EventArgs e)
         {
-            DatabaseManager m_dbManager = new DatabaseManager();
             m_dbManager.Read();
         }
     }
