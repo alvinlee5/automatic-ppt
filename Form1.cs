@@ -60,7 +60,8 @@ namespace AutoPoint
 
         private void button3_Click(object sender, System.EventArgs e)
         {
-            m_dbManager.ExecuteQuery("stub");
+            m_dbManager.CreateTable();
+            m_dbManager.Add();
             MessageBox.Show("Create database and added entry");
         }
 
