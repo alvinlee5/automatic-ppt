@@ -47,7 +47,7 @@ namespace AutoPoint
         {
             // Need to only create table if it doesn't exist.
             // Create Table with 2 columns
-            string createTableQuery = "create table songs (name TEXT, lyrics TEXT)";
+            string createTableQuery = "create table if not exists songs (name TEXT, lyrics TEXT)";
             ExecuteQuery(createTableQuery);
         }
         public void Add(string txtQuery)
