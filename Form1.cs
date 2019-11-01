@@ -16,10 +16,12 @@ namespace AutoPoint
 {
     public partial class Form1 : Form
     {
-        DatabaseManager m_dbManager;
+        private DatabaseManager m_dbManager;
+        private FormEnterSong m_formEnterSong;
         public Form1()
         {
             InitializeComponent();
+            m_formEnterSong = new FormEnterSong();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -55,19 +57,19 @@ namespace AutoPoint
         {
             m_dbManager = new DatabaseManager();
             m_dbManager.SetConnection();
-            MessageBox.Show("DB Connection Established");
+            m_dbManager.CreateTable();
+            m_dbManager.Add("stub");
+            m_dbManager.Read();
         }
 
         private void button3_Click(object sender, System.EventArgs e)
-        {
-            m_dbManager.CreateTable();
-            m_dbManager.Add("stub");
-            MessageBox.Show("Create database and added entry");
+        {            
+            m_formEnterSong.Show();
         }
 
         private void button4_Click(object sender, System.EventArgs e)
         {
-            m_dbManager.Read();
+            
         }
     }
 }
