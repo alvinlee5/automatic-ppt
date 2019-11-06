@@ -21,7 +21,6 @@ namespace AutoPoint
         public Form1()
         {
             InitializeComponent();
-            m_formEnterSong = new FormEnterSong();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -63,7 +62,8 @@ namespace AutoPoint
         }
 
         private void button3_Click(object sender, System.EventArgs e)
-        {            
+        {
+            m_formEnterSong = new FormEnterSong();
             m_formEnterSong.Show();
         }
 

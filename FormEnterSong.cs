@@ -12,27 +12,31 @@ namespace AutoPoint
 {
     public partial class FormEnterSong : Form
     {
+        private string m_songLyrics;
+        private string m_songTitle;
         public FormEnterSong()
         {
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            m_songLyrics = textBoxLyrics.Text;
+            m_songTitle = textBoxTitle.Text;
+            Console.WriteLine("Name: " + m_songTitle + "\tLyrics: " + m_songLyrics);
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            // Do nothing
+        }
+
+        private void TextBoxLyrics_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void Button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox2_TextChanged(object sender, EventArgs e)
+        private void TextBoxTitle_TextChanged(object sender, EventArgs e)
         {
 
         }
