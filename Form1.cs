@@ -63,7 +63,7 @@ namespace AutoPoint
 
         private void button3_Click(object sender, System.EventArgs e)
         {
-            m_formEnterSong = new FormEnterSong();
+            m_formEnterSong = new FormEnterSong(m_dbManager);
             m_formEnterSong.Show();
         }
 

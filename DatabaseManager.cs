@@ -9,7 +9,7 @@ using System.IO;
 
 namespace AutoPoint
 {
-    class DatabaseManager
+    public class DatabaseManager
     {
         private SQLiteConnection m_dbConnection;
         private SQLiteCommand m_dbCommand;

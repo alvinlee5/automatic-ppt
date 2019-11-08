@@ -14,9 +14,11 @@ namespace AutoPoint
     {
         private string m_songLyrics;
         private string m_songTitle;
-        public FormEnterSong()
+        private DatabaseManager m_dbManager;
+        public FormEnterSong(DatabaseManager dbManager)
         {
             InitializeComponent();
+            m_dbManager = dbManager;
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
