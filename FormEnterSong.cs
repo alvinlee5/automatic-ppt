@@ -24,14 +24,14 @@ namespace AutoPoint
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             m_songLyrics = textBoxLyrics.Text;
-            m_songTitle = textBoxTitle.Text;
-            Console.WriteLine("Name: " + m_songTitle + "\tLyrics: " + m_songLyrics);
+            m_songTitle = textBoxTitle.Text;            
             m_dbManager.Add(m_songTitle, m_songLyrics);
+            this.Close();
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            // Do nothing
+            this.Close();
         }
 
         private void TextBoxLyrics_TextChanged(object sender, EventArgs e)
