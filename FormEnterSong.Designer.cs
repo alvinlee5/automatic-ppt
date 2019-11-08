@@ -1,4 +1,6 @@
-﻿namespace AutoPoint
+﻿using System.Windows.Forms;
+
+namespace AutoPoint
 {
     partial class FormEnterSong
     {
@@ -50,6 +52,7 @@
             this.textBoxLyrics.Size = new System.Drawing.Size(621, 251);
             this.textBoxLyrics.TabIndex = 1;
             this.textBoxLyrics.TextChanged += new System.EventHandler(this.TextBoxLyrics_TextChanged);
+            this.textBoxLyrics.ScrollBars = ScrollBars.Vertical;
             // 
             // buttonSave
             // 
