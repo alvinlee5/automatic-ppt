@@ -50,10 +50,10 @@ namespace AutoPoint
             string createTableQuery = "create table if not exists songs (name TEXT, lyrics TEXT)";
             ExecuteQuery(createTableQuery);
         }
-        public void Add(string txtQuery)
+        public void Add(string songTitle, string songLyrics)
         {
             // Add song
-            string addSongQuery = "insert into songs (name, lyrics) values ('Oceans', 'You call me out upon...')";
+            string addSongQuery = "insert into songs (name, lyrics) values ('"+songTitle+"', '"+songLyrics+"')";
             ExecuteQuery(addSongQuery);
         }
 

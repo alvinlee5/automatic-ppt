@@ -26,6 +26,7 @@ namespace AutoPoint
             m_songLyrics = textBoxLyrics.Text;
             m_songTitle = textBoxTitle.Text;
             Console.WriteLine("Name: " + m_songTitle + "\tLyrics: " + m_songLyrics);
+            m_dbManager.Add(m_songTitle, m_songLyrics);
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)

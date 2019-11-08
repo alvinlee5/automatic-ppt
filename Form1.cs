@@ -21,6 +21,9 @@ namespace AutoPoint
         public Form1()
         {
             InitializeComponent();
+            m_dbManager = new DatabaseManager();
+            m_dbManager.SetConnection();
+            m_dbManager.CreateTable();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -54,10 +57,6 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            m_dbManager = new DatabaseManager();
-            m_dbManager.SetConnection();
-            m_dbManager.CreateTable();
-            m_dbManager.Add("stub");
             m_dbManager.Read();
         }
 
