@@ -31,13 +31,14 @@ namespace AutoPoint
             PowerPoint.Application pptApplication = new PowerPoint.Application();
             
             // invisible by default
-            pptApplication.Visible = Office.MsoTriState.msoTrue;   
+            //pptApplication.Visible = Office.MsoTriState.msoTrue;   
 
             PowerPoint.Presentations pptPres = pptApplication.Presentations;
-            PowerPoint.Presentation pres = pptPres.Add(Office.MsoTriState.msoTrue);
+            PowerPoint.Presentation pres = pptPres.Add(Office.MsoTriState.msoFalse);
             PowerPoint.Slides pptSlides = pres.Slides;
-            PowerPoint.Slide pptSlide = pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutText);
+            PowerPoint.Slide pptSlide = pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutBlank);
             PowerPoint.Shapes pptShapes = pptSlide.Shapes;
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 100, 100, 100, 100);
             PowerPoint.Shape pptShape = pptShapes[1];
             PowerPoint.TextFrame pptTextFrame = pptShape.TextFrame;
             PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
