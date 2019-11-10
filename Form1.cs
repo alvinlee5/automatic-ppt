@@ -18,9 +18,11 @@ namespace AutoPoint
     {
         private DatabaseManager m_dbManager;
         private FormEnterSong m_formEnterSong;
+        private PowerPointManager m_powerPointManager;
         public Form1()
         {
             InitializeComponent();
+            m_powerPointManager = new PowerPointManager();
             m_dbManager = new DatabaseManager();
             m_dbManager.SetConnection();
             m_dbManager.CreateTable();
@@ -28,7 +30,10 @@ namespace AutoPoint
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            PowerPoint.Application pptApplication = new PowerPoint.Application();
+            m_powerPointManager.CreateSlide("title", "lyrics");
+            m_powerPointManager.SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
+
+/*            PowerPoint.Application pptApplication = new PowerPoint.Application();
             
             // invisible by default
             //pptApplication.Visible = Office.MsoTriState.msoTrue;   
@@ -59,7 +64,7 @@ namespace AutoPoint
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
-            GC.WaitForPendingFinalizers();
+            GC.WaitForPendingFinalizers();*/
         }
 
         private void button2_Click(object sender, System.EventArgs e)

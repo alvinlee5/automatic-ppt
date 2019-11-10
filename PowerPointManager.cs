@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Office = Microsoft.Office.Core;
@@ -26,7 +27,7 @@ namespace AutoPoint
 
         public void CreateSlide(string slideTitle, string slideBody)
         {
-            PowerPoint.Slide pptSlide = m_pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutText);
+            PowerPoint.Slide pptSlide = m_pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutBlank);
             PowerPoint.Shapes pptShapes = pptSlide.Shapes;
 
             pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 50, 50, 100, 100);
@@ -45,8 +46,18 @@ namespace AutoPoint
             pptTextRange.Text = text;
         }
 
-        public void SavePowerPoint()
+        public void SavePowerPoint(string fileName)
         {
+            m_pptPres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation, Office.MsoTriState.msoTriStateMixed);
+            m_pptPres.Close();
+            m_pptApplication.Quit();
+
+            // TODO: Need to figure out how to close ppt application programmatically
+            Marshal.FinalReleaseComObject(m_pptApplication);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
         }
 
