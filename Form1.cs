@@ -38,11 +38,17 @@ namespace AutoPoint
             PowerPoint.Slides pptSlides = pres.Slides;
             PowerPoint.Slide pptSlide = pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutBlank);
             PowerPoint.Shapes pptShapes = pptSlide.Shapes;
-            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 100, 100, 100, 100);
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 50, 50, 100, 100);
             PowerPoint.Shape pptShape = pptShapes[1];
             PowerPoint.TextFrame pptTextFrame = pptShape.TextFrame;
             PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
-            pptTextRange.Text = "Test Text";
+            pptTextRange.Text = "Song title";
+
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 100, 100, 500, 500);
+            PowerPoint.Shape pptShape2 = pptShapes[2];
+            PowerPoint.TextFrame pptTextFrame2 = pptShape2.TextFrame;
+            PowerPoint.TextRange pptTextRange2 = pptTextFrame2.TextRange;
+            pptTextRange2.Text = "Lyrics go here";
 
             string fileName = "C:/Users/Alvin/Desktop/sample.pptx";
             pres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation, Office.MsoTriState.msoTriStateMixed);

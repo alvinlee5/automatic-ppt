@@ -10,7 +10,6 @@ namespace AutoPoint
 {
     public class PowerPointManager
     {
-        int m_currNumofSlides;
         PowerPoint.Application m_pptApplication;
         PowerPoint.Presentations m_pptPresCollection;
         PowerPoint.Presentation m_pptPres;
@@ -28,6 +27,27 @@ namespace AutoPoint
         public void CreateSlide(string slideTitle, string slideBody)
         {
             PowerPoint.Slide pptSlide = m_pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutText);
+            PowerPoint.Shapes pptShapes = pptSlide.Shapes;
+
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 50, 50, 100, 100);
+            PowerPoint.Shape titleTextbox = pptShapes[1];
+            WriteToTextbox(slideTitle, titleTextbox);
+
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 100, 100, 500, 500);
+            PowerPoint.Shape lyricsTextbox = pptShapes[2];
+            WriteToTextbox(slideBody, lyricsTextbox);
+        }
+
+        private void WriteToTextbox(string text, PowerPoint.Shape textBox)
+        {
+            PowerPoint.TextFrame pptTextFrame = textBox.TextFrame;
+            PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
+            pptTextRange.Text = text;
+        }
+
+        public void SavePowerPoint()
+        {
+
         }
 
         public void SetVisibility(bool visible)
