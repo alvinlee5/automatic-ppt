@@ -53,6 +53,8 @@ namespace AutoPoint
         public void Add(string songTitle, string songLyrics)
         {
             // Add song
+            songTitle = songTitle.Replace("'", "''");
+            songLyrics = songLyrics.Replace("'", "''");
             string addSongQuery = "insert into songs (name, lyrics) values ('"+songTitle+"', '"+songLyrics+"')";
             ExecuteQuery(addSongQuery);
         }
@@ -67,7 +69,7 @@ namespace AutoPoint
             m_dbCommand.CommandText = readQuery;
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
             while (reader.Read())
-                Console.WriteLine("Name: " + reader["name"] + "\tLyrics: " + reader["lyrics"]);
+                Console.WriteLine("Name: " + reader["name"] + "\tLyrics:\n" + reader["lyrics"]);
             m_dbConnection.Close();
         }
     }
