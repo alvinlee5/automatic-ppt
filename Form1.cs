@@ -22,8 +22,8 @@ namespace AutoPoint
         public Form1()
         {
             InitializeComponent();
-            m_powerPointManager = new PowerPointManager();
             m_dbManager = new DatabaseManager();
+            m_powerPointManager = new PowerPointManager(m_dbManager);
             m_dbManager.SetConnection();
             m_dbManager.CreateTable();
         }
@@ -36,7 +36,8 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            m_dbManager.Read();
+            //m_dbManager.Read();
+            m_dbManager.GetSongLyrics("Oceans");
         }
 
         private void button3_Click(object sender, System.EventArgs e)

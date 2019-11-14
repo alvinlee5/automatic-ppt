@@ -15,14 +15,16 @@ namespace AutoPoint
         PowerPoint.Presentations m_pptPresCollection;
         PowerPoint.Presentation m_pptPres;
         PowerPoint.Slides m_pptSlides;
+        private DatabaseManager m_dbManager;
 
-        public PowerPointManager()
+        public PowerPointManager(DatabaseManager databaseManager)
         {
             m_pptApplication = new PowerPoint.Application();
             m_pptPresCollection = m_pptApplication.Presentations;
             // Argument to choose whether the ppt is visible or not
             m_pptPres = m_pptPresCollection.Add(Office.MsoTriState.msoFalse);
             m_pptSlides = m_pptPres.Slides;
+            m_dbManager = databaseManager;
         }
 
         public void CreateSlide(string slideTitle, string slideBody)
@@ -58,6 +60,11 @@ namespace AutoPoint
             GC.WaitForPendingFinalizers();
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+        }
+
+        public void AddSongToPowerPoint(string songName)
+        {
 
         }
 
