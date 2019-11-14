@@ -36,8 +36,10 @@ namespace AutoPoint
 
         private void button2_Click(object sender, System.EventArgs e)
         {
+            string lyrics;
             //m_dbManager.Read();
-            m_dbManager.GetSongLyrics("Oceans");
+            lyrics = m_dbManager.GetSongLyrics("Oceans");
+            Console.WriteLine("Lyrics:\n" + lyrics);
         }
 
         private void button3_Click(object sender, System.EventArgs e)

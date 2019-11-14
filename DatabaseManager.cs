@@ -73,8 +73,9 @@ namespace AutoPoint
             m_dbConnection.Close();
         }
 
-        public void GetSongLyrics(string songName)
+        public string GetSongLyrics(string songName)
         {
+            string lyrics;
             m_dbConnection.Open();
             // TODO: Exception for when song not in database, though this should never
             // happen because user will select from a list of songs found in DB.
@@ -82,9 +83,10 @@ namespace AutoPoint
             m_dbCommand = m_dbConnection.CreateCommand();
             m_dbCommand.CommandText = getSongQuery;
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
-            while (reader.Read())
-                Console.WriteLine("Name: " + reader["name"] + "\tLyrics:\n" + reader["lyrics"]);
+            reader.Read();
+            lyrics = reader["lyrics"].ToString();
             m_dbConnection.Close();
+            return lyrics;
         }
     }
 }
