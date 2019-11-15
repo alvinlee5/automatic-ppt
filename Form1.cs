@@ -26,6 +26,7 @@ namespace AutoPoint
             m_powerPointManager = new PowerPointManager(m_dbManager);
             m_dbManager.SetConnection();
             m_dbManager.CreateTable();
+            m_powerPointManager.AddSongToPowerPoint("Oceans");
         }
 
         private void button1_Click(object sender, System.EventArgs e)

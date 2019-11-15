@@ -65,7 +65,13 @@ namespace AutoPoint
 
         public void AddSongToPowerPoint(string songName)
         {
-
+            string lyrics = m_dbManager.GetSongLyrics(songName);
+            for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
+            {
+                // For each "newline" index, need to figure out indices to add 
+                // to get the actual start of the next line.
+                Console.WriteLine("Index of break:" + i);
+            }
         }
 
         public void SetVisibility(bool visible)
