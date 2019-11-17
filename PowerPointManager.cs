@@ -29,7 +29,7 @@ namespace AutoPoint
 
         public void CreateSlide(string slideTitle, string slideBody)
         {
-            PowerPoint.Slide pptSlide = m_pptSlides.Add(1, PowerPoint.PpSlideLayout.ppLayoutBlank);
+            PowerPoint.Slide pptSlide = m_pptSlides.Add(m_pptSlides.Count + 1, PowerPoint.PpSlideLayout.ppLayoutBlank);
             PowerPoint.Shapes pptShapes = pptSlide.Shapes;
 
             pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 50, 50, 100, 100);
@@ -66,12 +66,21 @@ namespace AutoPoint
         public void AddSongToPowerPoint(string songName)
         {
             string lyrics = m_dbManager.GetSongLyrics(songName);
+            int currVerseIndex = 0;
+            Console.WriteLine(lyrics);
             for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
             {
-                // For each "newline" index, need to figure out indices to add 
-                // to get the actual start of the next line.
-                Console.WriteLine("Index of break:" + i);
+                CreateSlide(songName, lyrics.Substring(currVerseIndex, i - currVerseIndex));
+                // +4 because a newline is represented by \r\n\r\n. Sort of hacky, and
+                // will cause problems if a newline is not exactly \r\n\r\n.
+                currVerseIndex = i + 4;
             }
+            // Add the last verse, since there will not be a newline (or shouldn't be)
+            // after the last verse. 
+            //TODO: Need to account for situations where there
+            // is a newline due to user adding it.
+            CreateSlide(songName, lyrics.Substring(currVerseIndex));
+            SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
         }
 
         public void SetVisibility(bool visible)
