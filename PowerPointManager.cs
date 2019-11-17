@@ -29,28 +29,48 @@ namespace AutoPoint
 
         public void CreateSlide(string slideTitle, string slideBody)
         {
-            PowerPoint.Slide pptSlide = m_pptSlides.Add(m_pptSlides.Count + 1, PowerPoint.PpSlideLayout.ppLayoutBlank);
+            float slideWidth = m_pptPres.PageSetup.SlideWidth;
+            float lyricsShapeWidth = 900;
+            float lyricsShapeLeft = slideWidth * 0.5f - lyricsShapeWidth * 0.5f;
+            int textBoxHeight = 0;
+
+            PowerPoint.Slide pptSlide = m_pptSlides.Add(m_pptSlides.Count + 1,
+                PowerPoint.PpSlideLayout.ppLayoutBlank);
             PowerPoint.Shapes pptShapes = pptSlide.Shapes;
 
-            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 50, 50, 100, 100);
-            PowerPoint.Shape titleTextbox = pptShapes[1];
-            WriteToTextbox(slideTitle, titleTextbox);
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal,
+                /*left*/50, /*top*/50, /*width*/700, /*height*/textBoxHeight);
 
-            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 100, 100, 500, 500);
+            PowerPoint.Shape titleTextbox = pptShapes[1];
+            WriteToTextbox(slideTitle, titleTextbox, 50);
+
+            pptShapes.AddTextbox(Office.MsoTextOrientation.msoTextOrientationHorizontal, 
+                lyricsShapeLeft, 150, lyricsShapeWidth, textBoxHeight);
+
             PowerPoint.Shape lyricsTextbox = pptShapes[2];
-            WriteToTextbox(slideBody, lyricsTextbox);
+            WriteToLyricsTextbox(slideBody, lyricsTextbox, 35);
         }
 
-        private void WriteToTextbox(string text, PowerPoint.Shape textBox)
+        private void WriteToTextbox(string text, PowerPoint.Shape textBox, int fontSize)
         {
             PowerPoint.TextFrame pptTextFrame = textBox.TextFrame;
             PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
             pptTextRange.Text = text;
+            pptTextRange.Font.Size = fontSize;
+        }
+        private void WriteToLyricsTextbox(string text, PowerPoint.Shape textBox, int fontSize)
+        {
+            PowerPoint.TextFrame pptTextFrame = textBox.TextFrame;
+            PowerPoint.TextRange pptTextRange = pptTextFrame.TextRange;
+            pptTextRange.Text = text;
+            pptTextRange.Font.Size = fontSize;
+            pptTextRange.ParagraphFormat.Alignment = PowerPoint.PpParagraphAlignment.ppAlignCenter;
         }
 
         public void SavePowerPoint(string fileName)
         {
-            m_pptPres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation, Office.MsoTriState.msoTriStateMixed);
+            m_pptPres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation,
+                Office.MsoTriState.msoTriStateMixed);
             m_pptPres.Close();
             m_pptApplication.Quit();
 
