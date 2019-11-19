@@ -105,8 +105,12 @@ namespace AutoPoint
             DataRow row = dataTable.NewRow();
             m_dbCommand = m_dbConnection.CreateCommand();
             m_dbCommand.CommandText = "select name from songs";
+            // TODO: Create function for calling ExecuteReader() with
+            // certain CommandText
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
             dataTable.Load(reader);
+            //TODO: Default drop down item implemented in a hacky way...
+            // Consider fixing later
             row["name"] = "< Select Song >";
             dataTable.Rows.InsertAt(row, 0);
             m_songDropDown.ValueMember = "name";
