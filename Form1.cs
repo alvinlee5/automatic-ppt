@@ -22,36 +22,20 @@ namespace AutoPoint
         public Form1()
         {
             InitializeComponent();
-            m_dbManager = new DatabaseManager();
+            m_dbManager = new DatabaseManager(songDropDown);
             m_powerPointManager = new PowerPointManager(m_dbManager);
-            m_dbManager.SetConnection();
-            m_dbManager.CreateTable();
             m_powerPointManager.AddSongToPowerPoint("Oceans");
-        }
-
-        private void button1_Click(object sender, System.EventArgs e)
-        {
-            m_powerPointManager.CreateSlide("title", "lyrics");
-            m_powerPointManager.SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            string lyrics;
-            //m_dbManager.Read();
-            lyrics = m_dbManager.GetSongLyrics("Oceans");
-            Console.WriteLine("Lyrics:\n" + lyrics);
+            m_dbManager.Read();
         }
 
         private void button3_Click(object sender, System.EventArgs e)
         {
             m_formEnterSong = new FormEnterSong(m_dbManager);
             m_formEnterSong.Show();
-        }
-
-        private void button4_Click(object sender, System.EventArgs e)
-        {
-            
         }
     }
 }

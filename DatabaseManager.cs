@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
 using System.IO;
+using System.Windows.Forms;
 
 namespace AutoPoint
 {
@@ -15,7 +16,16 @@ namespace AutoPoint
         private SQLiteCommand m_dbCommand;
         private SQLiteDataAdapter m_dbDataAdapter;
         private DataSet m_dataSet = new DataSet();
-        private DataTable m_dataTable = new DataTable();        
+        private DataTable m_dataTable = new DataTable();
+        private ComboBox m_songDropDown;
+
+        public DatabaseManager(ComboBox songDropDown)
+        {
+            m_songDropDown = songDropDown;
+            SetConnection();
+            CreateTable();
+            FillDropDown();
+        }
 
         // Should call on application open
         public void SetConnection()
@@ -88,5 +98,22 @@ namespace AutoPoint
             m_dbConnection.Close();
             return lyrics;
         }
+        private void FillDropDown()
+        {
+            m_dbConnection.Open();
+            DataTable dataTable = new DataTable();
+            DataRow row = dataTable.NewRow();
+            m_dbCommand = m_dbConnection.CreateCommand();
+            m_dbCommand.CommandText = "select name from songs";
+            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
+            dataTable.Load(reader);
+            row["name"] = "< Select Song >";
+            dataTable.Rows.InsertAt(row, 0);
+            m_songDropDown.ValueMember = "name";
+            m_songDropDown.DisplayMember = "name";
+            m_songDropDown.DataSource = dataTable;
+            m_dbConnection.Close();
+        }
+
     }
 }
