@@ -57,7 +57,7 @@ namespace AutoPoint
         {
             // Need to only create table if it doesn't exist.
             // Create Table with 2 columns
-            string createTableQuery = "create table if not exists songs (name TEXT, lyrics TEXT)";
+            string createTableQuery = "create table if not exists songs (id INTEGER PRIMARY KEY, name TEXT, lyrics TEXT)";
             ExecuteQuery(createTableQuery);
         }
         public void Add(string songTitle, string songLyrics)
@@ -105,18 +105,19 @@ namespace AutoPoint
             DataTable dataTable = new DataTable();
             DataRow row = dataTable.NewRow();
             m_dbCommand = m_dbConnection.CreateCommand();
-            m_dbCommand.CommandText = "select name from songs";
+            m_dbCommand.CommandText = "select id, name from songs";
             // TODO: Create function for calling ExecuteReader() with
             // certain CommandText
             SQLiteDataReader reader = m_dbCommand.ExecuteReader();
             dataTable.Load(reader);
             //TODO: Default drop down item implemented in a hacky way...
             // Consider fixing later
-            row["name"] = "< Select Song >";
+            row[dataTable.Columns[0].ToString()/*id*/] = -1;
+            row[dataTable.Columns[1].ToString()/*name*/] = "< Select Song >";
             dataTable.Rows.InsertAt(row, 0);
             m_songDropDown.DataSource = dataTable;
             m_songDropDown.ValueMember = dataTable.Columns[0].ToString();
-            m_songDropDown.DisplayMember = dataTable.Columns[0].ToString();
+            m_songDropDown.DisplayMember = dataTable.Columns[1].ToString();
             m_dbConnection.Close();
         }
 
