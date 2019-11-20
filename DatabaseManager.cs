@@ -67,6 +67,7 @@ namespace AutoPoint
             songLyrics = songLyrics.Replace("'", "''");
             string addSongQuery = "insert into songs (name, lyrics) values ('"+songTitle+"', '"+songLyrics+"')";
             ExecuteQuery(addSongQuery);
+            FillDropDown();
         }
 
         // Read is special case where we don't simply call ExecuteQuery
@@ -99,7 +100,7 @@ namespace AutoPoint
             return lyrics;
         }
         private void FillDropDown()
-        {
+        {            
             m_dbConnection.Open();
             DataTable dataTable = new DataTable();
             DataRow row = dataTable.NewRow();
@@ -113,9 +114,9 @@ namespace AutoPoint
             // Consider fixing later
             row["name"] = "< Select Song >";
             dataTable.Rows.InsertAt(row, 0);
-            m_songDropDown.ValueMember = "name";
-            m_songDropDown.DisplayMember = "name";
             m_songDropDown.DataSource = dataTable;
+            m_songDropDown.ValueMember = dataTable.Columns[0].ToString();
+            m_songDropDown.DisplayMember = dataTable.Columns[0].ToString();
             m_dbConnection.Close();
         }
 

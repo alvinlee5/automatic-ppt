@@ -24,12 +24,13 @@ namespace AutoPoint
             InitializeComponent();
             m_dbManager = new DatabaseManager(songDropDown);
             m_powerPointManager = new PowerPointManager(m_dbManager);
-            m_powerPointManager.AddSongToPowerPoint("Oceans");
+            //m_powerPointManager.AddSongToPowerPoint("Oceans");
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
             m_dbManager.Read();
+            m_powerPointManager.AddSongToPowerPoint(songDropDown.GetItemText(songDropDown.SelectedItem));
         }
 
         private void button3_Click(object sender, System.EventArgs e)
