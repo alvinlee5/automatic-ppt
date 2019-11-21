@@ -22,21 +22,58 @@ namespace AutoPoint
         public Form1()
         {
             InitializeComponent();
-            m_dbManager = new DatabaseManager(songDropDown);
+            m_dbManager = new DatabaseManager(songComboBox);
             m_powerPointManager = new PowerPointManager(m_dbManager);
             //m_powerPointManager.AddSongToPowerPoint("Oceans");
+        }
+
+        private void buttonAddSelectedSong_Click(object sender, System.EventArgs e)
+        {
+            if (Convert.ToInt64(songComboBox.SelectedValue) != -1)
+            {
+                selectedSongsListBox.Items.Add(songComboBox.GetItemText(songComboBox.SelectedItem));
+            }
+        }
+
+        private void buttonRemoveSelectedSong_Click(object sender, System.EventArgs e)
+        {
+            selectedSongsListBox.Items.Remove(selectedSongsListBox.SelectedItem);
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
             m_dbManager.Read();
-            m_powerPointManager.AddSongToPowerPoint(songDropDown.GetItemText(songDropDown.SelectedItem));
+            m_powerPointManager.AddSongToPowerPoint(songComboBox.GetItemText(songComboBox.SelectedItem));
         }
 
         private void button3_Click(object sender, System.EventArgs e)
         {
             m_formEnterSong = new FormEnterSong(m_dbManager);
             m_formEnterSong.Show();
+        }
+
+        private void selectedSongsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectedSongsListBox.SelectedIndex != -1)
+            {
+                buttomRemoveSelectedSong.Enabled = true;
+            }
+            else
+            {
+                buttomRemoveSelectedSong.Enabled = false;
+            }
+        }
+
+        private void songComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (Convert.ToInt64(songComboBox.SelectedValue) != -1)
+            {
+                buttonAddSelectedSong.Enabled = true;
+            }
+            else
+            {
+                buttonAddSelectedSong.Enabled = false;
+            }
         }
     }
 }

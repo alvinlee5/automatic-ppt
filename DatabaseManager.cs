@@ -17,11 +17,11 @@ namespace AutoPoint
         private SQLiteDataAdapter m_dbDataAdapter;
         private DataSet m_dataSet = new DataSet();
         private DataTable m_dataTable = new DataTable();
-        private ComboBox m_songDropDown;
+        private ComboBox m_songComboBox;
 
-        public DatabaseManager(ComboBox songDropDown)
+        public DatabaseManager(ComboBox songComboBox)
         {
-            m_songDropDown = songDropDown;
+            m_songComboBox = songComboBox;
             SetConnection();
             CreateTable();
             FillDropDown();
@@ -115,9 +115,9 @@ namespace AutoPoint
             row[dataTable.Columns[0].ToString()/*id*/] = -1;
             row[dataTable.Columns[1].ToString()/*name*/] = "< Select Song >";
             dataTable.Rows.InsertAt(row, 0);
-            m_songDropDown.DataSource = dataTable;
-            m_songDropDown.ValueMember = dataTable.Columns[0].ToString();
-            m_songDropDown.DisplayMember = dataTable.Columns[1].ToString();
+            m_songComboBox.DataSource = dataTable;
+            m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
+            m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
             m_dbConnection.Close();
         }
 
