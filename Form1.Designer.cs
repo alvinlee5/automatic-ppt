@@ -42,13 +42,13 @@ namespace AutoPoint
             // 
             // buttonPublish
             // 
-            this.buttonPublish.Location = new System.Drawing.Point(511, 398);
+            this.buttonPublish.Location = new System.Drawing.Point(511, 385);
             this.buttonPublish.Name = "buttonPublish";
             this.buttonPublish.Size = new System.Drawing.Size(194, 40);
             this.buttonPublish.TabIndex = 1;
             this.buttonPublish.Text = "Publish";
             this.buttonPublish.UseVisualStyleBackColor = true;
-            this.buttonPublish.Click += new System.EventHandler(this.button2_Click);
+            this.buttonPublish.Click += new System.EventHandler(this.buttonPublish_Click);
             // 
             // buttonAddNewSong
             // 
@@ -58,13 +58,13 @@ namespace AutoPoint
             this.buttonAddNewSong.TabIndex = 2;
             this.buttonAddNewSong.Text = "Add New Song";
             this.buttonAddNewSong.UseVisualStyleBackColor = true;
-            this.buttonAddNewSong.Click += new System.EventHandler(this.button3_Click);
+            this.buttonAddNewSong.Click += new System.EventHandler(this.buttonAddNewSong_Click);
             // 
             // songComboBox
             // 
             this.songComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.songComboBox.FormattingEnabled = true;
-            this.songComboBox.Location = new System.Drawing.Point(42, 36);
+            this.songComboBox.Location = new System.Drawing.Point(42, 28);
             this.songComboBox.Name = "songComboBox";
             this.songComboBox.Size = new System.Drawing.Size(254, 28);
             this.songComboBox.Sorted = true;
@@ -75,7 +75,7 @@ namespace AutoPoint
             // 
             this.selectedSongsListBox.FormattingEnabled = true;
             this.selectedSongsListBox.ItemHeight = 20;
-            this.selectedSongsListBox.Location = new System.Drawing.Point(42, 95);
+            this.selectedSongsListBox.Location = new System.Drawing.Point(42, 80);
             this.selectedSongsListBox.Name = "selectedSongsListBox";
             this.selectedSongsListBox.Size = new System.Drawing.Size(346, 284);
             this.selectedSongsListBox.TabIndex = 4;
@@ -84,7 +84,7 @@ namespace AutoPoint
             // buttonAddSelectedSong
             // 
             this.buttonAddSelectedSong.Enabled = false;
-            this.buttonAddSelectedSong.Location = new System.Drawing.Point(317, 33);
+            this.buttonAddSelectedSong.Location = new System.Drawing.Point(317, 25);
             this.buttonAddSelectedSong.Name = "buttonAddSelectedSong";
             this.buttonAddSelectedSong.Size = new System.Drawing.Size(71, 35);
             this.buttonAddSelectedSong.TabIndex = 5;
@@ -95,7 +95,7 @@ namespace AutoPoint
             // buttomRemoveSelectedSong
             // 
             this.buttomRemoveSelectedSong.Enabled = false;
-            this.buttomRemoveSelectedSong.Location = new System.Drawing.Point(139, 395);
+            this.buttomRemoveSelectedSong.Location = new System.Drawing.Point(139, 385);
             this.buttomRemoveSelectedSong.Name = "buttomRemoveSelectedSong";
             this.buttomRemoveSelectedSong.Size = new System.Drawing.Size(122, 43);
             this.buttomRemoveSelectedSong.TabIndex = 6;

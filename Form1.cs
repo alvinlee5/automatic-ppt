@@ -19,6 +19,7 @@ namespace AutoPoint
         private DatabaseManager m_dbManager;
         private FormEnterSong m_formEnterSong;
         private PowerPointManager m_powerPointManager;
+        private FormEditSongList m_formEditSongList;
         public Form1()
         {
             InitializeComponent();
@@ -40,13 +41,13 @@ namespace AutoPoint
             selectedSongsListBox.Items.Remove(selectedSongsListBox.SelectedItem);
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void buttonPublish_Click(object sender, System.EventArgs e)
         {
             m_dbManager.Read();
             m_powerPointManager.AddSongToPowerPoint(songComboBox.GetItemText(songComboBox.SelectedItem));
         }
 
-        private void button3_Click(object sender, System.EventArgs e)
+        private void buttonAddNewSong_Click(object sender, System.EventArgs e)
         {
             m_formEnterSong = new FormEnterSong(m_dbManager);
             m_formEnterSong.Show();
