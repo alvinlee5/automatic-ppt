@@ -84,7 +84,7 @@ namespace AutoPoint
             // buttonAddSelectedSong
             // 
             this.buttonAddSelectedSong.Enabled = false;
-            this.buttonAddSelectedSong.Location = new System.Drawing.Point(317, 25);
+            this.buttonAddSelectedSong.Location = new System.Drawing.Point(317, 26);
             this.buttonAddSelectedSong.Name = "buttonAddSelectedSong";
             this.buttonAddSelectedSong.Size = new System.Drawing.Size(71, 35);
             this.buttonAddSelectedSong.TabIndex = 5;
@@ -111,6 +111,7 @@ namespace AutoPoint
             this.buttonEditSongList.TabIndex = 7;
             this.buttonEditSongList.Text = "Edit Song List";
             this.buttonEditSongList.UseVisualStyleBackColor = true;
+            this.buttonEditSongList.Click += new System.EventHandler(this.buttonEditSongList_Click);
             // 
             // Form1
             // 

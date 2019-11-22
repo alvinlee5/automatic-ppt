@@ -76,5 +76,11 @@ namespace AutoPoint
                 buttonAddSelectedSong.Enabled = false;
             }
         }
+
+        private void buttonEditSongList_Click(object sender, System.EventArgs e)
+        {
+            m_formEditSongList = new FormEditSongList(m_dbManager);
+            m_formEditSongList.Show();
+        }
     }
 }

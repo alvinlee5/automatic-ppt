@@ -12,9 +12,11 @@ namespace AutoPoint
 {
     public partial class FormEditSongList : Form
     {
-        public FormEditSongList()
+        private DatabaseManager m_dbManager;
+        public FormEditSongList(DatabaseManager databaseManager)
         {
             InitializeComponent();
+            m_dbManager = databaseManager;
         }
     }
 }
