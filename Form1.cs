@@ -25,7 +25,6 @@ namespace AutoPoint
             InitializeComponent();
             m_dbManager = new DatabaseManager(songComboBox);
             m_powerPointManager = new PowerPointManager(m_dbManager);
-            //m_powerPointManager.AddSongToPowerPoint("Oceans");
         }
 
         private void buttonAddSelectedSong_Click(object sender, System.EventArgs e)
@@ -43,8 +42,13 @@ namespace AutoPoint
 
         private void buttonPublish_Click(object sender, System.EventArgs e)
         {
-            m_dbManager.Read();
-            m_powerPointManager.AddSongToPowerPoint(songComboBox.GetItemText(songComboBox.SelectedItem));
+            //m_dbManager.Read();
+            //m_powerPointManager.AddSongToPowerPoint(songComboBox.GetItemText(songComboBox.SelectedItem));
+            foreach (string song in selectedSongsListBox.Items)
+            {
+                m_powerPointManager.AddSongToPowerPoint(song);
+            }
+            m_powerPointManager.SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
         }
 
         private void buttonAddNewSong_Click(object sender, System.EventArgs e)

@@ -100,7 +100,6 @@ namespace AutoPoint
             //TODO: Need to account for situations where there
             // is a newline due to user adding it.
             CreateSlide(songName, lyrics.Substring(currVerseIndex));
-            SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
         }
 
         public void SetVisibility(bool visible)
