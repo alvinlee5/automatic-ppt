@@ -87,7 +87,7 @@ namespace AutoPoint
         {
             string lyrics = m_dbManager.GetSongLyrics(songName);
             int currVerseIndex = 0;
-            Console.WriteLine(lyrics);
+            Console.WriteLine("Adding Song: " + songName);
             for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
             {
                 CreateSlide(songName, lyrics.Substring(currVerseIndex, i - currVerseIndex));

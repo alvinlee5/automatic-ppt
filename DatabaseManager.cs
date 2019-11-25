@@ -12,12 +12,8 @@ namespace AutoPoint
 {
     public class DatabaseManager
     {
-        private SQLiteConnection m_dbConnection;
-        private SQLiteCommand m_dbCommand;
-        private SQLiteDataAdapter m_dbDataAdapter;
-        private DataSet m_dataSet = new DataSet();
-        private DataTable m_dataTable = new DataTable();
         private ComboBox m_songComboBox;
+        private string m_connectionString = "Data Source=songs.db;Version=3";
 
         public DatabaseManager(ComboBox songComboBox)
         {
@@ -41,17 +37,18 @@ namespace AutoPoint
             {
                 SQLiteConnection.CreateFile("songs.db");
             }
-            m_dbConnection = new SQLiteConnection("Data Source=songs.db;Version=3");
         }
 
         public void ExecuteQuery(string txtQuery)
         {
-            m_dbConnection.Open();
-            m_dbCommand = m_dbConnection.CreateCommand();
-            m_dbCommand.CommandText = txtQuery;
-            m_dbCommand.ExecuteNonQuery();
-            m_dbConnection.Close();
-
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(txtQuery, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
         public void CreateTable()
         {
@@ -72,54 +69,65 @@ namespace AutoPoint
 
         // Read is special case where we don't simply call ExecuteQuery
         // We call SQLiteCommand::ExecuteReader
-        public void Read()
+        public void Read()  // Function for debugging. Prints each all song name + lyrics in DB
         {
-            m_dbConnection.Open();
-            string readQuery = "select * from songs";
-            m_dbCommand = m_dbConnection.CreateCommand();
-            m_dbCommand.CommandText = readQuery;
-            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
-            while (reader.Read())
-                Console.WriteLine("Name: " + reader["name"] + "\tLyrics:\n" + reader["lyrics"]);
-            m_dbConnection.Close();
+            string commandText = "select * from songs";
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
+                {
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                            Console.WriteLine("Name: " + rdr["name"] + "\tLyrics:\n" + rdr["lyrics"]);
+                    }
+                }
+            }
         }
 
         public string GetSongLyrics(string songName)
         {
             string lyrics;
-            m_dbConnection.Open();
-            // TODO: Exception for when song not in database, though this should never
-            // happen because user will select from a list of songs found in DB.
-            string getSongQuery = "select * from songs where name='" + songName + "'"; 
-            m_dbCommand = m_dbConnection.CreateCommand();
-            m_dbCommand.CommandText = getSongQuery;
-            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
-            reader.Read();
-            lyrics = reader["lyrics"].ToString();
-            m_dbConnection.Close();
-            return lyrics;
+            string commandText = "select * from songs where name='" + songName + "'";
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
+                {
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+                        lyrics = rdr["lyrics"].ToString();
+                        return lyrics;
+                    }
+                }
+            }
         }
         private void FillDropDown()
-        {            
-            m_dbConnection.Open();
+        {
+            string commandText = "select id, name from songs";
             DataTable dataTable = new DataTable();
             DataRow row = dataTable.NewRow();
-            m_dbCommand = m_dbConnection.CreateCommand();
-            m_dbCommand.CommandText = "select id, name from songs";
-            // TODO: Create function for calling ExecuteReader() with
-            // certain CommandText
-            SQLiteDataReader reader = m_dbCommand.ExecuteReader();
-            dataTable.Load(reader);
-            //TODO: Default drop down item implemented in a hacky way...
-            // Consider fixing later
-            row[dataTable.Columns[0].ToString()/*id*/] = -1;
-            row[dataTable.Columns[1].ToString()/*name*/] = "< Select Song >";
-            dataTable.Rows.InsertAt(row, 0);
-            m_songComboBox.DataSource = dataTable;
-            m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
-            m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
-            m_dbConnection.Close();
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
+                {
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        dataTable.Load(rdr);
+                        //TODO: Default drop down item implemented in a hacky way...
+                        // Consider fixing later
+                        row[dataTable.Columns[0].ToString()/*id*/] = -1;
+                        row[dataTable.Columns[1].ToString()/*name*/] = "< Select Song >";
+                        dataTable.Rows.InsertAt(row, 0);
+                        m_songComboBox.DataSource = dataTable;
+                        m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
+                        m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
+                    }
+                }
+            }
         }
-
     }
 }
