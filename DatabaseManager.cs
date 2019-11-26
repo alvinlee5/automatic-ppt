@@ -67,6 +67,13 @@ namespace AutoPoint
             FillDropDown();
         }
 
+        public void Delete(string songName)
+        {
+            string deleteSongQuery = "delete from songs where name='" + songName + "'";
+            ExecuteQuery(deleteSongQuery);
+            FillDropDown();
+        }
+
         // Read is special case where we don't simply call ExecuteQuery
         // We call SQLiteCommand::ExecuteReader
         public void Read()  // Function for debugging. Prints each all song name + lyrics in DB
@@ -125,6 +132,27 @@ namespace AutoPoint
                         m_songComboBox.DataSource = dataTable;
                         m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
                         m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
+                    }
+                }
+            }
+        }
+
+        public void FillListBox(ListBox listBoxSongs)
+        {
+            string commandText = "select id, name from songs";
+            DataTable dataTable = new DataTable();
+            DataRow row = dataTable.NewRow();
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
+                {
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        dataTable.Load(rdr);
+                        listBoxSongs.DataSource = dataTable;
+                        listBoxSongs.ValueMember = dataTable.Columns[0].ToString();
+                        listBoxSongs.DisplayMember = dataTable.Columns[1].ToString();
                     }
                 }
             }

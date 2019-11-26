@@ -32,15 +32,16 @@
             this.textBoxLyrics = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // listBoxSongs
             // 
             this.listBoxSongs.FormattingEnabled = true;
             this.listBoxSongs.ItemHeight = 20;
-            this.listBoxSongs.Location = new System.Drawing.Point(52, 50);
+            this.listBoxSongs.Location = new System.Drawing.Point(52, 90);
             this.listBoxSongs.Name = "listBoxSongs";
-            this.listBoxSongs.Size = new System.Drawing.Size(264, 304);
+            this.listBoxSongs.Size = new System.Drawing.Size(264, 264);
             this.listBoxSongs.TabIndex = 0;
             // 
             // textBoxLyrics
@@ -59,6 +60,7 @@
             this.buttonDelete.TabIndex = 2;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonSave
             // 
@@ -69,11 +71,19 @@
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(52, 50);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(264, 26);
+            this.textBoxSearch.TabIndex = 4;
+            // 
             // FormEditSongList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.textBoxLyrics);
@@ -91,5 +101,6 @@
         private System.Windows.Forms.TextBox textBoxLyrics;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.TextBox textBoxSearch;
     }
 }
