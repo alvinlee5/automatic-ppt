@@ -1,4 +1,6 @@
-﻿namespace AutoPoint
+﻿using System.Windows.Forms;
+
+namespace AutoPoint
 {
     partial class FormEditSongList
     {
@@ -52,6 +54,7 @@
             this.textBoxLyrics.Name = "textBoxLyrics";
             this.textBoxLyrics.Size = new System.Drawing.Size(332, 304);
             this.textBoxLyrics.TabIndex = 1;
+            this.textBoxLyrics.ScrollBars = ScrollBars.Vertical;
             // 
             // buttonDelete
             // 
