@@ -43,6 +43,7 @@
             this.listBoxSongs.Name = "listBoxSongs";
             this.listBoxSongs.Size = new System.Drawing.Size(264, 264);
             this.listBoxSongs.TabIndex = 0;
+            this.listBoxSongs.SelectedIndexChanged += new System.EventHandler(this.listBoxSongs_SelectedIndexChanged);
             // 
             // textBoxLyrics
             // 

@@ -17,7 +17,9 @@ namespace AutoPoint
         {
             InitializeComponent();
             m_dbManager = databaseManager;
+            listBoxSongs.SelectionMode = SelectionMode.None;
             m_dbManager.FillListBox(listBoxSongs);
+            listBoxSongs.SelectionMode = SelectionMode.One;
         }
         private void buttonDelete_Click(object sender, System.EventArgs e)
         {
@@ -25,16 +27,34 @@ namespace AutoPoint
             {
                 return;
             }
+
             string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
-            m_dbManager.Delete(songName);
             DataRowView rowView = listBoxSongs.SelectedItem as DataRowView;
             DataTable dt = listBoxSongs.DataSource as DataTable;
+
+            if (listBoxSongs.Items.Count == 1)
+            {
+                // For last removed item, clear textBox text
+                textBoxLyrics.Text = null;
+            }
+
+            m_dbManager.Delete(songName);
             if (rowView == null)
             {
                 return;
             }
             dt.Rows.Remove(rowView.Row);
-            
+        }
+
+        private void listBoxSongs_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
+            {
+                return;
+            }
+            string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
+            string lyrics = m_dbManager.GetSongLyrics(songName);
+            textBoxLyrics.Text = lyrics;
         }
     }
 }
