@@ -85,7 +85,6 @@ namespace AutoPoint
             GC.WaitForPendingFinalizers();
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
         }
 
         public void AddSongsToPowerPoint(ListBox.ObjectCollection songList)

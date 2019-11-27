@@ -49,7 +49,7 @@ namespace AutoPoint
         private void buttonAddNewSong_Click(object sender, System.EventArgs e)
         {
             m_formEnterSong = new FormEnterSong(m_dbManager);
-            m_formEnterSong.Show();
+            m_formEnterSong.ShowDialog();
         }
 
         private void selectedSongsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace AutoPoint
         private void buttonEditSongList_Click(object sender, System.EventArgs e)
         {
             m_formEditSongList = new FormEditSongList(m_dbManager);
-            m_formEditSongList.Show();
+            m_formEditSongList.ShowDialog();
         }
     }
 }
