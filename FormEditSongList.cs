@@ -56,5 +56,12 @@ namespace AutoPoint
             string lyrics = m_dbManager.GetSongLyrics(songName);
             textBoxLyrics.Text = lyrics;
         }
+
+        private void buttonSave_Click(object sender, System.EventArgs e)
+        {
+            string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
+            string newSongLyrics = textBoxLyrics.Text;
+            m_dbManager.Update(songName, newSongLyrics);
+        }
     }
 }

@@ -71,6 +71,10 @@ namespace AutoPoint
         {
             m_pptPres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation,
                 Office.MsoTriState.msoTriStateMixed);
+            // TODO: There will be situations where a user may want to save different powerpoint
+            // files at one time, so the presentation and application cannot just be closed
+            // and quitted. If they are, we start the application and create a new presentation
+            // again.
             m_pptPres.Close();
             m_pptApplication.Quit();
 

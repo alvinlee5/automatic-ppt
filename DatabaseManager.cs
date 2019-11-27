@@ -67,6 +67,13 @@ namespace AutoPoint
             FillDropDown();
         }
 
+        //Eventually need to add a param for ID to differentiate between songs with same names...
+        public void Update(string songName, string newSongLyrics)
+        {
+            string updateQuery = "update songs set lyrics='" + newSongLyrics + "' where name='" + songName + "'";
+            ExecuteQuery(updateQuery);
+        }
+
         public void Delete(string songName)
         {
             string deleteSongQuery = "delete from songs where name='" + songName + "'";
