@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 
@@ -19,12 +20,16 @@ namespace AutoPoint
 
         public PowerPointManager(DatabaseManager databaseManager)
         {
+            m_dbManager = databaseManager;
+        }
+
+        private void InitializePowerpointObjects()
+        {
             m_pptApplication = new PowerPoint.Application();
             m_pptPresCollection = m_pptApplication.Presentations;
             // Argument to choose whether the ppt is visible or not
             m_pptPres = m_pptPresCollection.Add(Office.MsoTriState.msoFalse);
             m_pptSlides = m_pptPres.Slides;
-            m_dbManager = databaseManager;
         }
 
         public void CreateSlide(string slideTitle, string slideBody)
@@ -71,10 +76,6 @@ namespace AutoPoint
         {
             m_pptPres.SaveAs(fileName, PowerPoint.PpSaveAsFileType.ppSaveAsOpenXMLPresentation,
                 Office.MsoTriState.msoTriStateMixed);
-            // TODO: There will be situations where a user may want to save different powerpoint
-            // files at one time, so the presentation and application cannot just be closed
-            // and quitted. If they are, we start the application and create a new presentation
-            // again.
             m_pptPres.Close();
             m_pptApplication.Quit();
 
@@ -87,23 +88,27 @@ namespace AutoPoint
 
         }
 
-        public void AddSongToPowerPoint(string songName)
+        public void AddSongsToPowerPoint(ListBox.ObjectCollection songList)
         {
-            string lyrics = m_dbManager.GetSongLyrics(songName);
-            int currVerseIndex = 0;
-            Console.WriteLine("Adding Song: " + songName);
-            for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
+            InitializePowerpointObjects();
+            foreach (string songName in songList)
             {
-                CreateSlide(songName, lyrics.Substring(currVerseIndex, i - currVerseIndex));
-                // +4 because a newline is represented by \r\n\r\n. Sort of hacky, and
-                // will cause problems if a newline is not exactly \r\n\r\n.
-                currVerseIndex = i + 4;
+                string lyrics = m_dbManager.GetSongLyrics(songName);
+                int currVerseIndex = 0;
+                Console.WriteLine("Adding Song: " + songName);
+                for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
+                {
+                    CreateSlide(songName, lyrics.Substring(currVerseIndex, i - currVerseIndex));
+                    // +4 because a newline is represented by \r\n\r\n. Sort of hacky, and
+                    // will cause problems if a newline is not exactly \r\n\r\n.
+                    currVerseIndex = i + 4;
+                }
+                // Add the last verse, since there will not be a newline (or shouldn't be)
+                // after the last verse. 
+                //TODO: Need to account for situations where there
+                // is a newline due to user adding it.
+                CreateSlide(songName, lyrics.Substring(currVerseIndex));
             }
-            // Add the last verse, since there will not be a newline (or shouldn't be)
-            // after the last verse. 
-            //TODO: Need to account for situations where there
-            // is a newline due to user adding it.
-            CreateSlide(songName, lyrics.Substring(currVerseIndex));
         }
 
         public void SetVisibility(bool visible)

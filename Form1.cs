@@ -42,12 +42,7 @@ namespace AutoPoint
 
         private void buttonPublish_Click(object sender, System.EventArgs e)
         {
-            //m_dbManager.Read();
-            //m_powerPointManager.AddSongToPowerPoint(songComboBox.GetItemText(songComboBox.SelectedItem));
-            foreach (string song in selectedSongsListBox.Items)
-            {
-                m_powerPointManager.AddSongToPowerPoint(song);
-            }
+            m_powerPointManager.AddSongsToPowerPoint(selectedSongsListBox.Items);
             m_powerPointManager.SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
         }
 
