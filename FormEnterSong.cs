@@ -12,8 +12,6 @@ namespace AutoPoint
 {
     public partial class FormEnterSong : Form
     {
-        private string m_songLyrics;
-        private string m_songTitle;
         private DatabaseManager m_dbManager;
         public FormEnterSong(DatabaseManager dbManager)
         {
@@ -23,9 +21,10 @@ namespace AutoPoint
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            m_songLyrics = textBoxLyrics.Text;
-            m_songTitle = textBoxTitle.Text;            
-            m_dbManager.Add(m_songTitle, m_songLyrics);
+            string songLyrics = textBoxLyrics.Text;
+            string songTitle = textBoxTitle.Text;
+            string songArtist = textBoxArtist.Text;
+            m_dbManager.Add(songTitle, songArtist, songLyrics);
             this.Close();
         }
 

@@ -53,30 +53,40 @@ namespace AutoPoint
         public void CreateTable()
         {
             // Need to only create table if it doesn't exist.
-            // Create Table with 2 columns
-            string createTableQuery = "create table if not exists songs (id INTEGER PRIMARY KEY, name TEXT, lyrics TEXT)";
+            // Create Table with 3 columns
+            string createTableQuery = "create table if not exists songs (id INTEGER PRIMARY KEY, title_and_artist TEXT, lyrics TEXT)";
             ExecuteQuery(createTableQuery);
         }
-        public void Add(string songTitle, string songLyrics)
+        public void Add(string songTitle, string songArtist, string songLyrics)
         {
             // Add song
             songTitle = songTitle.Replace("'", "''");
+            songArtist = songArtist.Replace("'", "''");
             songLyrics = songLyrics.Replace("'", "''");
-            string addSongQuery = "insert into songs (name, lyrics) values ('"+songTitle+"', '"+songLyrics+"')";
+            string songTitleAndArtist;
+            if (String.IsNullOrEmpty(songArtist))
+            {
+                songTitleAndArtist = songTitle;
+            }
+            else
+            {
+                songTitleAndArtist = songTitle + " - " + songArtist;
+            }
+            string addSongQuery = "insert into songs (title_and_artist, lyrics) values ('" + songTitleAndArtist + "', '" + songLyrics+"')";
             ExecuteQuery(addSongQuery);
             FillDropDown();
         }
 
         //Eventually need to add a param for ID to differentiate between songs with same names...
-        public void Update(string songName, string newSongLyrics)
+        public void Update(string songID, string newSongLyrics)
         {
-            string updateQuery = "update songs set lyrics='" + newSongLyrics + "' where name='" + songName + "'";
+            string updateQuery = "update songs set lyrics='" + newSongLyrics + "' where id='" + songID + "'";
             ExecuteQuery(updateQuery);
         }
 
-        public void Delete(string songName)
+        public void Delete(string songID)
         {
-            string deleteSongQuery = "delete from songs where name='" + songName + "'";
+            string deleteSongQuery = "delete from songs where id='" + songID + "'";
             ExecuteQuery(deleteSongQuery);
             FillDropDown();
         }
@@ -100,10 +110,10 @@ namespace AutoPoint
             }
         }
 
-        public string GetSongLyrics(string songName)
+        public string GetSongLyrics(string songID)
         {
             string lyrics;
-            string commandText = "select * from songs where name='" + songName + "'";
+            string commandText = "select * from songs where id='" + songID + "'";
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
             {
                 connection.Open();
@@ -120,7 +130,7 @@ namespace AutoPoint
         }
         private void FillDropDown()
         {
-            string commandText = "select id, name from songs";
+            string commandText = "select id, title_and_artist from songs";
             DataTable dataTable = new DataTable();
             DataRow row = dataTable.NewRow();
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
@@ -146,9 +156,8 @@ namespace AutoPoint
 
         public void FillListBox(ListBox listBoxSongs)
         {
-            string commandText = "select id, name from songs";
+            string commandText = "select id, title_and_artist from songs";
             DataTable dataTable = new DataTable();
-            DataRow row = dataTable.NewRow();
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
             {
                 connection.Open();

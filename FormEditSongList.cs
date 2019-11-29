@@ -28,7 +28,7 @@ namespace AutoPoint
                 return;
             }
 
-            string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
+            string songID = Convert.ToString(listBoxSongs.SelectedValue);
             DataRowView rowView = listBoxSongs.SelectedItem as DataRowView;
             DataTable dt = listBoxSongs.DataSource as DataTable;
 
@@ -38,30 +38,38 @@ namespace AutoPoint
                 textBoxLyrics.Text = null;
             }
 
-            m_dbManager.Delete(songName);
+            m_dbManager.Delete(songID);
             if (rowView == null)
             {
                 return;
             }
             dt.Rows.Remove(rowView.Row);
+
+
+            UpdateLyricsTextBox();
         }
 
         private void listBoxSongs_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            UpdateLyricsTextBox();
+        }
+
+        private void buttonSave_Click(object sender, System.EventArgs e)
+        {
+            string songID = Convert.ToString(listBoxSongs.SelectedValue);
+            string newSongLyrics = textBoxLyrics.Text;
+            m_dbManager.Update(songID, newSongLyrics);
+        }
+
+        private void UpdateLyricsTextBox()
         {
             if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
             {
                 return;
             }
-            string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
-            string lyrics = m_dbManager.GetSongLyrics(songName);
+            string songID = Convert.ToString(listBoxSongs.SelectedValue);
+            string lyrics = m_dbManager.GetSongLyrics(songID);
             textBoxLyrics.Text = lyrics;
-        }
-
-        private void buttonSave_Click(object sender, System.EventArgs e)
-        {
-            string songName = listBoxSongs.GetItemText(listBoxSongs.SelectedItem);
-            string newSongLyrics = textBoxLyrics.Text;
-            m_dbManager.Update(songName, newSongLyrics);
         }
     }
 }
