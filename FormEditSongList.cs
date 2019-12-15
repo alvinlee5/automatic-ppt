@@ -18,7 +18,7 @@ namespace AutoPoint
             InitializeComponent();
             m_dbManager = databaseManager;
             listBoxSongs.SelectionMode = SelectionMode.None;
-            m_dbManager.FillListBox(listBoxSongs);
+            m_dbManager.FillListBox(listBoxSongs, "");
             listBoxSongs.SelectionMode = SelectionMode.One;
         }
         private void buttonDelete_Click(object sender, System.EventArgs e)
@@ -69,11 +69,18 @@ namespace AutoPoint
         {
             if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
             {
+                textBoxLyrics.Clear();
                 return;
             }
             string songID = Convert.ToString(listBoxSongs.SelectedValue);
             string lyrics = m_dbManager.GetSongLyrics(songID);
             textBoxLyrics.Text = lyrics;
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            m_dbManager.FillListBox(listBoxSongs, textBoxSearch.Text);
+            UpdateLyricsTextBox();
         }
     }
 }

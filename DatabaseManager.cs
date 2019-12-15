@@ -151,9 +151,9 @@ namespace AutoPoint
             Read();
         }
 
-        public void FillListBox(ListBox listBoxSongs)
+        public void FillListBox(ListBox listBoxSongs, string textFilter)
         {
-            string commandText = "select id, title_and_artist from songs order by title_and_artist";
+            string commandText = "select id, title_and_artist from songs where title_and_artist like '%" + textFilter + "%' order by title_and_artist";
             DataTable dataTable = new DataTable();
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
             {
