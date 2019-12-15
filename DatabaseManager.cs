@@ -86,6 +86,7 @@ namespace AutoPoint
 
         public void Delete(string songID)
         {
+            Console.WriteLine(songID);
             string deleteSongQuery = "delete from songs where id='" + songID + "'";
             ExecuteQuery(deleteSongQuery);
             FillDropDown();
@@ -104,7 +105,7 @@ namespace AutoPoint
                     using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
-                            Console.WriteLine("Name: " + rdr["name"] + "\tLyrics:\n" + rdr["lyrics"]);
+                            Console.WriteLine("songID: " + rdr["id"] + "\tLyrics:\n" + rdr["lyrics"]);
                     }
                 }
             }
@@ -130,7 +131,7 @@ namespace AutoPoint
         }
         private void FillDropDown()
         {
-            string commandText = "select id, title_and_artist from songs";
+            string commandText = "select id, title_and_artist from songs order by title_and_artist";
             DataTable dataTable = new DataTable();
             DataRow row = dataTable.NewRow();
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
@@ -141,22 +142,18 @@ namespace AutoPoint
                     using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         dataTable.Load(rdr);
-                        //TODO: Default drop down item implemented in a hacky way...
-                        // Consider fixing later
-                        row[dataTable.Columns[0].ToString()/*id*/] = -1;
-                        row[dataTable.Columns[1].ToString()/*name*/] = "< Select Song >";
-                        dataTable.Rows.InsertAt(row, 0);
                         m_songComboBox.DataSource = dataTable;
                         m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
                         m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
                     }
                 }
             }
+            Read();
         }
 
         public void FillListBox(ListBox listBoxSongs)
         {
-            string commandText = "select id, title_and_artist from songs";
+            string commandText = "select id, title_and_artist from songs order by title_and_artist";
             DataTable dataTable = new DataTable();
             using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
             {
@@ -166,9 +163,31 @@ namespace AutoPoint
                     using (SQLiteDataReader rdr = cmd.ExecuteReader())
                     {
                         dataTable.Load(rdr);
-                        listBoxSongs.DataSource = dataTable;
                         listBoxSongs.ValueMember = dataTable.Columns[0].ToString();
                         listBoxSongs.DisplayMember = dataTable.Columns[1].ToString();
+                        listBoxSongs.DataSource = dataTable;
+                    }
+                }
+            }
+        }
+
+        public bool IsSongInDB(string songID)
+        {
+            Read();
+            string commandText = "select * from songs where id='" + songID + "'"; 
+            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
+                {
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (count == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
                     }
                 }
             }

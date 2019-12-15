@@ -67,7 +67,6 @@ namespace AutoPoint
             this.songComboBox.Location = new System.Drawing.Point(42, 28);
             this.songComboBox.Name = "songComboBox";
             this.songComboBox.Size = new System.Drawing.Size(254, 28);
-            this.songComboBox.Sorted = true;
             this.songComboBox.TabIndex = 3;
             this.songComboBox.SelectionChangeCommitted += new System.EventHandler(this.songComboBox_SelectionChangeCommitted);
             // 

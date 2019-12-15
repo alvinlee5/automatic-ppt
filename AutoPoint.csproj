@@ -87,6 +87,7 @@
     <Compile Include="FormEnterSong.Designer.cs">
       <DependentUpon>FormEnterSong.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListBoxItem.cs" />
     <Compile Include="PowerPointManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,7 +23,7 @@ namespace AutoPoint
         }
         private void buttonDelete_Click(object sender, System.EventArgs e)
         {
-            if (listBoxSongs.Items.Count == 0)
+            if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
             {
                 return;
             }
@@ -45,7 +45,6 @@ namespace AutoPoint
             }
             dt.Rows.Remove(rowView.Row);
 
-
             UpdateLyricsTextBox();
         }
 
@@ -56,6 +55,11 @@ namespace AutoPoint
 
         private void buttonSave_Click(object sender, System.EventArgs e)
         {
+            if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
+            {
+                return;
+            }
+
             string songID = Convert.ToString(listBoxSongs.SelectedValue);
             string newSongLyrics = textBoxLyrics.Text;
             m_dbManager.Update(songID, newSongLyrics);

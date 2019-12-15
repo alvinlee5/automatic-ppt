@@ -19,7 +19,6 @@ namespace AutoPoint
         private DatabaseManager m_dbManager;
         private FormEnterSong m_formEnterSong;
         private PowerPointManager m_powerPointManager;
-        private FormEditSongList m_formEditSongList;
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +30,9 @@ namespace AutoPoint
         {
             if (Convert.ToInt64(songComboBox.SelectedValue) != -1)
             {
-                selectedSongsListBox.Items.Add(songComboBox.GetItemText(songComboBox.SelectedItem));
+                string displayMember = songComboBox.GetItemText(songComboBox.SelectedItem);
+                string valueMember = Convert.ToString(songComboBox.SelectedValue);
+                selectedSongsListBox.Items.Add(new ListBoxItem(displayMember, valueMember));
             }
         }
 
@@ -78,8 +79,28 @@ namespace AutoPoint
 
         private void buttonEditSongList_Click(object sender, System.EventArgs e)
         {
-            m_formEditSongList = new FormEditSongList(m_dbManager);
-            m_formEditSongList.ShowDialog();
+            using (FormEditSongList formEditSongList = new FormEditSongList(m_dbManager))
+            {
+                formEditSongList.FormClosed += new FormClosedEventHandler(FormEditSongList_FormClosed);
+                formEditSongList.ShowDialog();
+            }                
+        }
+
+        void FormEditSongList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            List<ListBoxItem> songList = new List<ListBoxItem>();
+            foreach (ListBoxItem listBoxItem in selectedSongsListBox.Items)
+            {
+                if (!m_dbManager.IsSongInDB((listBoxItem).ValueMember))
+                {
+                    songList.Add(listBoxItem);
+                }
+            }
+
+            foreach (var item in songList)
+            {
+                selectedSongsListBox.Items.Remove(item);
+            }
         }
     }
 }
