@@ -20,6 +20,8 @@ namespace AutoPoint
             listBoxSongs.SelectionMode = SelectionMode.None;
             m_dbManager.FillListBox(listBoxSongs, "");
             listBoxSongs.SelectionMode = SelectionMode.One;
+            textBoxSearch.Text = "Search Song List";
+            textBoxSearch.ForeColor = Color.Gray;
         }
         private void buttonDelete_Click(object sender, System.EventArgs e)
         {
@@ -79,8 +81,30 @@ namespace AutoPoint
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            m_dbManager.FillListBox(listBoxSongs, textBoxSearch.Text);
-            UpdateLyricsTextBox();
+            if (textBoxSearch.Text != "Search Song List")
+            {
+                m_dbManager.FillListBox(listBoxSongs, textBoxSearch.Text);
+                UpdateLyricsTextBox();
+            }
+        }
+
+        private void textBoxSearch_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxSearch.Text))
+            {
+                textBoxSearch.Text = "Search Song List";
+                textBoxSearch.ForeColor = Color.Gray;
+            }
+                
+        }
+
+        private void textBoxSearch_GotFocus(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text == "Search Song List")
+            {
+                textBoxSearch.Text = "";
+                textBoxSearch.ForeColor = Color.Black;
+            }
         }
     }
 }

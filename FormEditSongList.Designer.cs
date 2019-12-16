@@ -52,9 +52,9 @@ namespace AutoPoint
             this.textBoxLyrics.Location = new System.Drawing.Point(412, 50);
             this.textBoxLyrics.Multiline = true;
             this.textBoxLyrics.Name = "textBoxLyrics";
+            this.textBoxLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxLyrics.Size = new System.Drawing.Size(332, 304);
             this.textBoxLyrics.TabIndex = 1;
-            this.textBoxLyrics.ScrollBars = ScrollBars.Vertical;
             // 
             // buttonDelete
             // 
@@ -83,6 +83,8 @@ namespace AutoPoint
             this.textBoxSearch.Size = new System.Drawing.Size(264, 26);
             this.textBoxSearch.TabIndex = 4;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            this.textBoxSearch.GotFocus += new System.EventHandler(this.textBoxSearch_GotFocus);
+            this.textBoxSearch.LostFocus += new System.EventHandler(this.textBoxSearch_LostFocus);
             // 
             // FormEditSongList
             // 
