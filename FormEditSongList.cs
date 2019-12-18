@@ -100,7 +100,7 @@ namespace AutoPoint
 
         private void textBoxSearch_GotFocus(object sender, EventArgs e)
         {
-            if (textBoxSearch.Text == "Search Song List")
+            if (textBoxSearch.Text == "Search Song List" && textBoxSearch.ForeColor == Color.Gray)
             {
                 textBoxSearch.Text = "";
                 textBoxSearch.ForeColor = Color.Black;

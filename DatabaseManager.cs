@@ -12,15 +12,12 @@ namespace AutoPoint
 {
     public class DatabaseManager
     {
-        private ComboBox m_songComboBox;
         private string m_connectionString = "Data Source=songs.db;Version=3";
 
-        public DatabaseManager(ComboBox songComboBox)
+        public DatabaseManager()
         {
-            m_songComboBox = songComboBox;
             SetConnection();
             CreateTable();
-            FillDropDown();
         }
 
         // Should call on application open
@@ -74,7 +71,6 @@ namespace AutoPoint
             }
             string addSongQuery = "insert into songs (title_and_artist, lyrics) values ('" + songTitleAndArtist + "', '" + songLyrics+"')";
             ExecuteQuery(addSongQuery);
-            FillDropDown();
         }
 
         //Eventually need to add a param for ID to differentiate between songs with same names...
@@ -89,7 +85,6 @@ namespace AutoPoint
             Console.WriteLine(songID);
             string deleteSongQuery = "delete from songs where id='" + songID + "'";
             ExecuteQuery(deleteSongQuery);
-            FillDropDown();
         }
 
         // Read is special case where we don't simply call ExecuteQuery
@@ -129,28 +124,6 @@ namespace AutoPoint
                 }
             }
         }
-        private void FillDropDown()
-        {
-            string commandText = "select id, title_and_artist from songs order by title_and_artist";
-            DataTable dataTable = new DataTable();
-            DataRow row = dataTable.NewRow();
-            using (SQLiteConnection connection = new SQLiteConnection(m_connectionString))
-            {
-                connection.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(commandText, connection))
-                {
-                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                    {
-                        dataTable.Load(rdr);
-                        m_songComboBox.DataSource = dataTable;
-                        m_songComboBox.ValueMember = dataTable.Columns[0].ToString();
-                        m_songComboBox.DisplayMember = dataTable.Columns[1].ToString();
-                    }
-                }
-            }
-            Read();
-        }
-
         public void FillListBox(ListBox listBoxSongs, string textFilter)
         {
             string commandText = "select id, title_and_artist from songs where title_and_artist like '%" + textFilter + "%' order by title_and_artist";
