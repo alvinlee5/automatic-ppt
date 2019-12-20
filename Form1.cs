@@ -31,7 +31,19 @@ namespace AutoPoint
         }
         private void buttonRemoveSelectedSong_Click(object sender, System.EventArgs e)
         {
-            selectedSongsListBox.Items.Remove(selectedSongsListBox.SelectedItem);   
+            int currentIndex = selectedSongsListBox.SelectedIndex;
+            selectedSongsListBox.Items.Remove(selectedSongsListBox.SelectedItem); 
+            if (selectedSongsListBox.Items.Count > 0)
+            {
+                if (currentIndex == selectedSongsListBox.Items.Count)
+                {
+                    selectedSongsListBox.SelectedIndex = selectedSongsListBox.Items.Count - 1;
+                }
+                else
+                {
+                    selectedSongsListBox.SelectedIndex = currentIndex;
+                }
+            }
         }
 
         private void buttonPublish_Click(object sender, System.EventArgs e)

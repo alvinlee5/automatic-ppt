@@ -42,8 +42,10 @@ namespace AutoPoint
             this.textBoxTitle.Location = new System.Drawing.Point(134, 44);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(621, 26);
-            this.textBoxTitle.TabIndex = 0;
+            this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.TextChanged += new System.EventHandler(this.TextBoxTitle_TextChanged);
+            this.textBoxTitle.GotFocus += new System.EventHandler(this.textBoxTitle_GotFocus);
+            this.textBoxTitle.LostFocus += new System.EventHandler(this.textBoxTitle_LostFocus);
             // 
             // textBoxLyrics
             // 
@@ -52,15 +54,17 @@ namespace AutoPoint
             this.textBoxLyrics.Name = "textBoxLyrics";
             this.textBoxLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxLyrics.Size = new System.Drawing.Size(621, 225);
-            this.textBoxLyrics.TabIndex = 2;
+            this.textBoxLyrics.TabIndex = 3;
             this.textBoxLyrics.TextChanged += new System.EventHandler(this.TextBoxLyrics_TextChanged);
+            this.textBoxLyrics.GotFocus += new System.EventHandler(this.textBoxLyrics_GotFocus);
+            this.textBoxLyrics.LostFocus += new System.EventHandler(this.textBoxLyrics_LostFocus);
             // 
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(649, 385);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(106, 44);
-            this.buttonSave.TabIndex = 3;
+            this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
@@ -70,7 +74,7 @@ namespace AutoPoint
             this.buttonCancel.Location = new System.Drawing.Point(510, 385);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(107, 44);
-            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
@@ -80,7 +84,9 @@ namespace AutoPoint
             this.textBoxArtist.Location = new System.Drawing.Point(134, 91);
             this.textBoxArtist.Name = "textBoxArtist";
             this.textBoxArtist.Size = new System.Drawing.Size(621, 26);
-            this.textBoxArtist.TabIndex = 1;
+            this.textBoxArtist.TabIndex = 2;
+            this.textBoxArtist.GotFocus += new System.EventHandler(this.textBoxArtist_GotFocus);
+            this.textBoxArtist.LostFocus += new System.EventHandler(this.textBoxArtist_LostFocus);
             // 
             // FormEnterSong
             // 
