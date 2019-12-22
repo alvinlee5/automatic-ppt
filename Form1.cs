@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO;
 
 namespace AutoPoint
 {
@@ -48,8 +50,27 @@ namespace AutoPoint
 
         private void buttonPublish_Click(object sender, System.EventArgs e)
         {
-            m_powerPointManager.AddSongsToPowerPoint(selectedSongsListBox.Items);
-            m_powerPointManager.SavePowerPoint("C:/Users/Alvin/Desktop/sample.pptx");
+            if (selectedSongsListBox.Items.Count > 0)
+            {
+                using (SaveFileDialog dialog = new SaveFileDialog())
+                {
+                    dialog.Filter = "PowerPoint Presentation (*.pptx)|*.pptx";
+                    dialog.RestoreDirectory = true;
+                    dialog.FileName = "Presentation";
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        m_powerPointManager.AddSongsToPowerPoint(selectedSongsListBox.Items);
+                        m_powerPointManager.SavePowerPoint(dialog.FileName);
+                    }
+                }
+            }
+            else
+            {
+                string message = "Choose at least 1 song!";
+                // Show message box
+                MessageBox.Show(message);
+                return;
+            }
         }
 
         private void buttonAddNewSong_Click(object sender, System.EventArgs e)

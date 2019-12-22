@@ -90,14 +90,19 @@ namespace AutoPoint
         public void AddSongsToPowerPoint(ListBox.ObjectCollection songList)
         {
             InitializePowerpointObjects();
-            foreach (string songName in songList)
+            foreach (ListBoxItem song in songList)
             {
-                string lyrics = m_dbManager.GetSongLyrics(songName);
+                string lyrics = m_dbManager.GetSongLyrics(song.ValueMember);
+                string songTitle = song.DisplayMember;
+                if (song.DisplayMember.Contains("-"))
+                {
+                    songTitle = songTitle.Substring(0, songTitle.IndexOf("-") - 1);
+                }
                 int currVerseIndex = 0;
-                Console.WriteLine("Adding Song: " + songName);
+                Console.WriteLine("Adding Song: " + song.DisplayMember);
                 for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
                 {
-                    CreateSlide(songName, lyrics.Substring(currVerseIndex, i - currVerseIndex));
+                    CreateSlide(songTitle, lyrics.Substring(currVerseIndex, i - currVerseIndex));
                     // +4 because a newline is represented by \r\n\r\n. Sort of hacky, and
                     // will cause problems if a newline is not exactly \r\n\r\n.
                     currVerseIndex = i + 4;
@@ -106,7 +111,7 @@ namespace AutoPoint
                 // after the last verse. 
                 //TODO: Need to account for situations where there
                 // is a newline due to user adding it.
-                CreateSlide(songName, lyrics.Substring(currVerseIndex));
+                CreateSlide(songTitle, lyrics.Substring(currVerseIndex));
             }
         }
 
