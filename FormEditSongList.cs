@@ -59,12 +59,18 @@ namespace AutoPoint
         {
             if (listBoxSongs.Items.Count == 0 || listBoxSongs.SelectedIndex == -1)
             {
+                string msg = "Select or add songs to edit!";
+                // Show message box
+                MessageBox.Show(msg);
                 return;
             }
 
             string songID = Convert.ToString(listBoxSongs.SelectedValue);
             string newSongLyrics = textBoxLyrics.Text;
             m_dbManager.Update(songID, newSongLyrics);
+            string message = "Changes Saved!";
+            // Show message box
+            MessageBox.Show(message);
         }
 
         private void UpdateLyricsTextBox()

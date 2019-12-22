@@ -113,6 +113,9 @@ namespace AutoPoint
                 // is a newline due to user adding it.
                 CreateSlide(songTitle, lyrics.Substring(currVerseIndex));
             }
+            string message = "Presentation Saved!";
+            // Show message box
+            MessageBox.Show(message);
         }
 
         public void SetVisibility(bool visible)
