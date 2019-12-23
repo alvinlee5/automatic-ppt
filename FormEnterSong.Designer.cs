@@ -53,7 +53,7 @@ namespace AutoPoint
             this.textBoxLyrics.Multiline = true;
             this.textBoxLyrics.Name = "textBoxLyrics";
             this.textBoxLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLyrics.Size = new System.Drawing.Size(621, 225);
+            this.textBoxLyrics.Size = new System.Drawing.Size(621, 478);
             this.textBoxLyrics.TabIndex = 3;
             this.textBoxLyrics.TextChanged += new System.EventHandler(this.TextBoxLyrics_TextChanged);
             this.textBoxLyrics.GotFocus += new System.EventHandler(this.textBoxLyrics_GotFocus);
@@ -61,7 +61,7 @@ namespace AutoPoint
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(649, 385);
+            this.buttonSave.Location = new System.Drawing.Point(649, 643);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(106, 44);
             this.buttonSave.TabIndex = 4;
@@ -71,7 +71,7 @@ namespace AutoPoint
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(510, 385);
+            this.buttonCancel.Location = new System.Drawing.Point(505, 643);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(107, 44);
             this.buttonCancel.TabIndex = 0;
@@ -92,18 +92,18 @@ namespace AutoPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(820, 719);
             this.Controls.Add(this.textBoxArtist);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.textBoxLyrics);
-            this.Name = "FormEnterSong";
-            this.Text = "Add New Song";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Name = "FormEnterSong";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Add New Song";
             this.ResumeLayout(false);
             this.PerformLayout();
 
