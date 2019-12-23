@@ -99,7 +99,11 @@ namespace AutoPoint
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.textBoxLyrics);
             this.Name = "FormEnterSong";
-            this.Text = "FormEnterSong";
+            this.Text = "Add New Song";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.ResumeLayout(false);
             this.PerformLayout();
 

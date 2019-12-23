@@ -125,6 +125,10 @@ namespace AutoPoint
             this.Controls.Add(this.buttonPublish);
             this.Name = "Form1";
             this.Text = "AutoPoint";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.ResumeLayout(false);
             this.PerformLayout();
 
