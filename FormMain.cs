@@ -16,11 +16,11 @@ using System.IO;
 
 namespace AutoPoint
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         private DatabaseManager m_dbManager;
         private PowerPointManager m_powerPointManager;
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             m_dbManager = new DatabaseManager();
