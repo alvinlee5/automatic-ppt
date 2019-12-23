@@ -76,6 +76,7 @@ namespace AutoPoint
         //Eventually need to add a param for ID to differentiate between songs with same names...
         public void Update(string songID, string newSongLyrics)
         {
+            newSongLyrics = newSongLyrics.Replace("'", "''");
             string updateQuery = "update songs set lyrics='" + newSongLyrics + "' where id='" + songID + "'";
             ExecuteQuery(updateQuery);
         }

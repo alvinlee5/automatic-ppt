@@ -43,22 +43,22 @@ namespace AutoPoint
             this.listBoxSongs.ItemHeight = 20;
             this.listBoxSongs.Location = new System.Drawing.Point(52, 90);
             this.listBoxSongs.Name = "listBoxSongs";
-            this.listBoxSongs.Size = new System.Drawing.Size(264, 264);
+            this.listBoxSongs.Size = new System.Drawing.Size(385, 384);
             this.listBoxSongs.TabIndex = 0;
             this.listBoxSongs.SelectedIndexChanged += new System.EventHandler(this.listBoxSongs_SelectedIndexChanged);
             // 
             // textBoxLyrics
             // 
-            this.textBoxLyrics.Location = new System.Drawing.Point(412, 50);
+            this.textBoxLyrics.Location = new System.Drawing.Point(490, 50);
             this.textBoxLyrics.Multiline = true;
             this.textBoxLyrics.Name = "textBoxLyrics";
             this.textBoxLyrics.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLyrics.Size = new System.Drawing.Size(332, 304);
+            this.textBoxLyrics.Size = new System.Drawing.Size(564, 427);
             this.textBoxLyrics.TabIndex = 1;
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(131, 370);
+            this.buttonDelete.Location = new System.Drawing.Point(169, 499);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(106, 53);
             this.buttonDelete.TabIndex = 2;
@@ -68,7 +68,7 @@ namespace AutoPoint
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(520, 370);
+            this.buttonSave.Location = new System.Drawing.Point(706, 499);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(111, 53);
             this.buttonSave.TabIndex = 3;
@@ -80,7 +80,7 @@ namespace AutoPoint
             // 
             this.textBoxSearch.Location = new System.Drawing.Point(52, 50);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(264, 26);
+            this.textBoxSearch.Size = new System.Drawing.Size(385, 26);
             this.textBoxSearch.TabIndex = 4;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             this.textBoxSearch.GotFocus += new System.EventHandler(this.textBoxSearch_GotFocus);
@@ -90,18 +90,18 @@ namespace AutoPoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1114, 592);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.textBoxLyrics);
             this.Controls.Add(this.listBoxSongs);
-            this.Name = "FormEditSongList";
-            this.Text = "Edit Song List";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Name = "FormEditSongList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Edit Song List";
             this.ResumeLayout(false);
             this.PerformLayout();
 
