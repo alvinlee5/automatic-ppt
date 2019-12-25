@@ -34,6 +34,10 @@ namespace AutoPoint
 
         public void CreateSlide(string slideTitle, string slideBody)
         {
+            if (slideBody.Contains("\r\n\r\n") || String.IsNullOrEmpty(slideBody) || slideBody == "\r\n")
+            {
+                return;
+            }
             float slideWidth = m_pptPres.PageSetup.SlideWidth;
             float lyricsShapeWidth = 900;
             float lyricsShapeLeft = slideWidth * 0.5f - lyricsShapeWidth * 0.5f;
@@ -100,8 +104,14 @@ namespace AutoPoint
                 }
                 int currVerseIndex = 0;
                 Console.WriteLine("Adding Song: " + song.DisplayMember);
-                for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 1))
+                for (int i = lyrics.IndexOf("\r\n\r\n"); i > -1; i = lyrics.IndexOf("\r\n\r\n", i + 4))
                 {
+                    if (lyrics.Substring(currVerseIndex, i - currVerseIndex).IndexOf("\r\n", 0) == 0)
+                    {
+                        // If user accidentally adds extra new line before the next verse, we will
+                        // correct the index so the new line doesn't appear in the slides
+                        currVerseIndex = currVerseIndex + 2;
+                    }
                     CreateSlide(songTitle, lyrics.Substring(currVerseIndex, i - currVerseIndex));
                     // +4 because a newline is represented by \r\n\r\n. Sort of hacky, and
                     // will cause problems if a newline is not exactly \r\n\r\n.
@@ -113,9 +123,6 @@ namespace AutoPoint
                 // is a newline due to user adding it.
                 CreateSlide(songTitle, lyrics.Substring(currVerseIndex));
             }
-            string message = "Presentation Saved!";
-            // Show message box
-            MessageBox.Show(message);
         }
 
         public void SetVisibility(bool visible)

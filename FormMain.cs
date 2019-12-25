@@ -61,6 +61,9 @@ namespace AutoPoint
                     {
                         m_powerPointManager.AddSongsToPowerPoint(selectedSongsListBox.Items);
                         m_powerPointManager.SavePowerPoint(dialog.FileName);
+                        string message = "Presentation Saved!";
+                        // Show message box
+                        MessageBox.Show(message);
                     }
                 }
             }
